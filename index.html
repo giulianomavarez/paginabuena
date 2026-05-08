@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión en Microsoft</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .login-container {
+      display: flex;
+      max-width: 900px;
+      width: 100%;
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .login--image-container {
+      flex: 1;
+      background: linear-gradient(135deg, #0057A6 0%, #00A4EF 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      position: relative;
+    }
+
+    .login--image {
+      max-width: 100%;
+      height: auto;
+      filter: brightness(1.1);
+      z-index: 2;
+      position: relative;
+    }
+
+    .image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      z-index: 1;
+    }
+
+    .login--form-container {
+      flex: 1;
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .logo-container {
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      height: 24px;
+      width: auto;
+    }
+
+    .form-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #323130;
+      margin-bottom: 8px;
+    }
+
+    .form-subtitle {
+      color: #605e5c;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .login--content {
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .input-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #323130;
+      font-size: 14px;
+    }
+
+    .input-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 12px;
+      color: #605e5c;
+      font-size: 18px;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 14px 14px 14px 40px;
+      border: 1px solid #8a8886;
+      border-radius: 4px;
+      font-size: 15px;
+      transition: all 0.2s ease;
+    }
+
+    .login-input:focus {
+      outline: none;
+      border-color: #0078d4;
+      box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.2);
+    }
+
+    .password-eye {
+      position: absolute;
+      right: 12px;
+      color: #605e5c;
+      font-size: 18px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .login--button {
+      width: 100%;
+      padding: 14px;
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin-bottom: 20px;
+    }
+
+    .login--button:hover {
+      background-color: #006cbd;
+    }
+
+    .login--button:active {
+      background-color: #005a9e;
+    }
+
+    .forgot-password {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .forgot-password a {
+      color: #0078d4;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+    .separator {
+      display: flex;
+      align-items: center;
+      margin: 25px 0;
+      color: #8a8886;
+      font-size: 14px;
+    }
+
+    .separator::before,
+    .separator::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #e1dfdd;
+    }
+
+    .separator span {
+      padding: 0 15px;
+    }
+
+    .signup-option {
+      text-align: center;
+      font-size: 14px;
+      color: #605e5c;
+    }
+
+    .signup-option a {
+      color: #0078d4;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .signup-option a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #e1dfdd;
+    }
+
+    .footer-links a {
+      color: #605e5c;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .footer-links a:hover {
+      color: #0078d4;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .login-container {
+        flex-direction: column;
+        max-width: 450px;
+      }
+
+      .login--image-container {
+        padding: 30px;
+        min-height: 180px;
+      }
+
+      .login--form-container {
+        padding: 40px 30px;
+      }
+
+      .form-title {
+        font-size: 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      .login--form-container {
+        padding: 30px 20px;
+      }
+
+      .form-title {
+        font-size: 20px;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+    }
+
+    /* Estados de validación */
+    .input-error .login-input {
+      border-color: #d13438;
+    }
+
+    .input-error .login-input:focus {
+      box-shadow: 0 0 0 3px rgba(209, 52, 56, 0.2);
+    }
+
+    .error-message {
+      color: #d13438;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .input-error .error-message {
+      display: block;
+    }
+
+    .success-message {
+      background-color: #dff6dd;
+      color: #107c10;
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .input-success .login-input {
+      border-color: #107c10;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <!-- Panel izquierdo con imagen -->
+    <div class="login--image-container">
+      <div class="image-overlay"></div>
+      <img src="https://www.insights.la/wp-content/uploads/2015/04/Microsoft-logo-m-box-880x660.png" alt="Microsoft" class="login--image">
+    </div>
+
+    <!-- Panel derecho con formulario -->
+    <div class="login--form-container">
+      <div class="logo-container">
+        <img src="logo.png" alt="Microsoft" class="logo">
+      </div>
+
+      <h1 class="form-title">Iniciar sesión</h1>
+      <p class="form-subtitle">Usa tu cuenta de Microsoft</p>
+
+      <!-- Mensaje de éxito (oculto por defecto) -->
+      <div class="success-message" id="successMessage">
+        <i class="ri-checkbox-circle-fill"></i> Has iniciado sesión correctamente. Redirigiendo...
+      </div>
+
+      <form method="post" class="login--form" id="loginForm">
+        <div class="login--content">
+          <!-- Campo de email -->
+          <div class="input-group" id="emailGroup">
+            <label class="input-label">Correo electrónico, teléfono o Skype</label>
+            <div class="input-container">
+              <i class="ri-user-3-line input-icon"></i>
+              <input type="email" required name="eml" class="login-input" id="login-input-text" placeholder="Introduce tu correo electrónico">
+            </div>
+            <div class="error-message" id="emailError">Introduce una dirección de correo electrónico válida</div>
+          </div>
+
+          <!-- Campo de contraseña -->
+          <div class="input-group" id="passwordGroup">
+            <label class="input-label">Contraseña</label>
+            <div class="input-container">
+              <i class="ri-lock-2-line input-icon"></i>
+              <input type="password" name="psew" class="login-input" id="login-input-pass" placeholder="Introduce tu contraseña" required>
+              <button type="button" class="password-eye" id="login--eye">
+                <i class="ri-eye-off-line"></i>
+              </button>
+            </div>
+            <div class="error-message" id="passwordError">La contraseña es obligatoria</div>
+          </div>
+        </div>
+
+        <!-- Botón de envío -->
+        <button type="submit" class="login--button">Siguiente</button>
+
+        <!-- Enlace para recuperar contraseña -->
+        <div class="forgot-password">
+          <a href="#">¿Has olvidado tu contraseña?</a>
+        </div>
+
+        <!-- Separador -->
+        <div class="separator">
+          <span>o</span>
+        </div>
+
+        <!-- Opción de registro -->
+        <div class="signup-option">
+          ¿No tienes una cuenta? <a href="#">Crear una cuenta</a>
+        </div>
+      </form>
+
+      <!-- Enlaces del pie -->
+      <div class="footer-links">
+        <a href="#">Condiciones de uso</a>
+        <a href="#">Privacidad y cookies</a>
+        <a href="#">Ayuda</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginForm = document.getElementById('loginForm');
+      const emailInput = document.getElementById('login-input-text');
+      const passwordInput = document.getElementById('login-input-pass');
+      const togglePassword = document.getElementById('login--eye');
+      const emailGroup = document.getElementById('emailGroup');
+      const passwordGroup = document.getElementById('passwordGroup');
+      const emailError = document.getElementById('emailError');
+      const passwordError = document.getElementById('passwordError');
+      const successMessage = document.getElementById('successMessage');
+      
+      // Validación de email
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+      
+      // Mostrar/ocultar contraseña
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Cambiar icono
+        const icon = this.querySelector('i');
+        icon.className = type === 'password' ? 'ri-eye-off-line' : 'ri-eye-line';
+      });
+      
+      // Validación en tiempo real
+      emailInput.addEventListener('input', function() {
+        if (validateEmail(this.value)) {
+          emailGroup.classList.remove('input-error');
+          emailGroup.classList.add('input-success');
+        } else {
+          emailGroup.classList.remove('input-success');
+        }
+      });
+      
+      passwordInput.addEventListener('input', function() {
+        if (this.value.length > 0) {
+          passwordGroup.classList.remove('input-error');
+          passwordGroup.classList.add('input-success');
+        } else {
+          passwordGroup.classList.remove('input-success');
+        }
+      });
+      
+      // Validación al enviar el formulario
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        let isValid = true;
+        
+        // Validar email
+        if (!validateEmail(emailInput.value)) {
+          emailGroup.classList.add('input-error');
+          isValid = false;
+        } else {
+          emailGroup.classList.remove('input-error');
+        }
+        
+        // Validar contraseña
+        if (passwordInput.value.length === 0) {
+          passwordGroup.classList.add('input-error');
+          isValid = false;
+        } else {
+          passwordGroup.classList.remove('input-error');
+        }
+        
+        // Si es válido, simular envío
+        if (isValid) {
+          // Mostrar mensaje de éxito
+          successMessage.style.display = 'block';
+          
+          // Simular redirección después de 2 segundos
+          setTimeout(() => {
+            alert('Inicio de sesión exitoso (simulación)');
+            // En un caso real, aquí se enviaría el formulario o redirigiría al usuario
+            // loginForm.submit();
+          }, 2000);
+        }
+      });
+      
+      // Focus en el campo de email al cargar la página
+      emailInput.focus();
+    });
+  </script>
+</body>
+</html>
