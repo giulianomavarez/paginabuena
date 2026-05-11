@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validación WhatsApp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wa-green:      #25D366;
+      --wa-teal:       #128C7E;
+      --wa-teal-dark:  #075E54;
+      --wa-light-bg:   #ECE5DD;
+      --wa-panel-bg:   #f0f2f5;
+      --wa-white:      #FFFFFF;
+      --wa-msg-out:    #DCF8C6;
+      --wa-text:       #111B21;
+      --wa-text-gray:  #667781;
+      --wa-border:     #D1D7DB;
+      --wa-icon:       #54656F;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--wa-panel-bg);
+      color: var(--wa-text);
+    }
+
+    body {
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; min-height: 100vh;
+    }
+
+    /* Subtle background pattern like WhatsApp Web */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d1d7db' fill-opacity='0.25'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* ── Card shell ── */
+    .shell {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 980px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.16), 0 2px 8px rgba(0,0,0,0.08);
+      animation: cardIn 0.5s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* ── LEFT PANEL ── */
+    .left {
+      background: linear-gradient(160deg, var(--wa-teal-dark) 0%, var(--wa-teal) 60%, #1DA462 100%);
+      padding: 72px 52px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .left::before {
+      content: ''; position: absolute;
+      top: -80px; right: -80px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    }
+    .left::after {
+      content: ''; position: absolute;
+      bottom: -60px; left: -60px;
+      width: 260px; height: 260px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
+    }
+    .left-inner { position: relative; z-index: 1; }
+
+    .left-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 99px; padding: 6px 14px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
+      color: #fff; text-transform: uppercase; margin-bottom: 28px;
+    }
+    .left-badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--wa-green);
+      box-shadow: 0 0 6px var(--wa-green);
+      animation: blink 1.4s ease-in-out infinite alternate;
+    }
+    @keyframes blink { to { opacity: 0.3; } }
+
+    .left-icon-wrap {
+      width: 76px; height: 76px; border-radius: 20px;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 28px;
+    }
+    .left-icon-wrap svg { width: 38px; height: 38px; fill: white; }
+
+    .left-heading { font-size: 30px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 14px; }
+    .left-sub { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 36px; }
+
+    .left-features { display: flex; flex-direction: column; gap: 14px; }
+    .feat { display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.85); font-weight: 500; }
+    .feat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--wa-green); flex-shrink: 0; }
+
+    /* ── RIGHT PANEL ── */
+    .right {
+      background: var(--wa-white);
+      padding: 72px 56px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+
+    .right-logo {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 32px;
+    }
+    .right-logo-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--wa-teal); display: flex; align-items: center; justify-content: center;
+    }
+    .right-logo-icon svg { width: 22px; height: 22px; fill: white; }
+    .right-logo-text { font-size: 18px; font-weight: 700; color: var(--wa-teal-dark); }
+
+    .right-heading { font-size: 24px; font-weight: 700; color: var(--wa-text); margin-bottom: 6px; }
+    .right-sub { font-size: 13.5px; color: var(--wa-text-gray); margin-bottom: 32px; line-height: 1.5; }
+
+    .info-strip {
+      background: #f0fdf4; border: 1px solid #bbf7d0;
+      border-left: 3px solid var(--wa-green);
+      border-radius: 10px; padding: 13px 16px;
+      display: flex; gap: 10px; align-items: flex-start;
+      margin-bottom: 28px;
+    }
+    .info-strip svg { width: 16px; height: 16px; fill: var(--wa-teal); flex-shrink: 0; margin-top: 2px; }
+    .info-strip-text { font-size: 12.5px; color: var(--wa-teal-dark); line-height: 1.6; }
+    .info-strip-text strong { color: var(--wa-teal); }
+
+    .field-label {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+      text-transform: uppercase; color: var(--wa-text-gray);
+      margin-bottom: 10px; display: block;
+    }
+
+    .phone-row { display: flex; gap: 10px; margin-bottom: 24px; }
+
+    .select-wrap { position: relative; width: 115px; flex-shrink: 0; }
+    .select-wrap select {
+      width: 100%; appearance: none;
+      background: var(--wa-panel-bg); border: 1.5px solid var(--wa-border);
+      border-radius: 10px; padding: 13px 34px 13px 12px;
+      font-family: inherit; font-size: 13px; font-weight: 600; color: var(--wa-text);
+      cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .select-wrap select:focus { outline: none; border-color: var(--wa-teal); box-shadow: 0 0 0 3px rgba(18,140,126,0.12); }
+    .select-wrap::after {
+      content: '▾'; position: absolute; right: 11px; top: 50%;
+      transform: translateY(-50%); color: var(--wa-icon); pointer-events: none; font-size: 11px;
+    }
+
+    .phone-input {
+      flex: 1;
+      background: var(--wa-panel-bg); border: 1.5px solid var(--wa-border);
+      border-radius: 10px; padding: 13px 16px;
+      font-family: inherit; font-size: 15px; font-weight: 500; color: var(--wa-text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .phone-input::placeholder { color: var(--wa-border); font-size: 14px; letter-spacing: 0; }
+    .phone-input:focus { outline: none; border-color: var(--wa-teal); box-shadow: 0 0 0 3px rgba(18,140,126,0.12); }
+
+    .btn-submit {
+      width: 100%; padding: 15px;
+      background: var(--wa-teal);
+      color: white; border: none; border-radius: 10px;
+      font-family: inherit; font-size: 15px; font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 12px rgba(18,140,126,0.3);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      position: relative; overflow: hidden;
+    }
+    .btn-submit:hover:not(:disabled) {
+      background: var(--wa-teal-dark);
+      box-shadow: 0 4px 20px rgba(7,94,84,0.35);
+      transform: translateY(-1px);
+    }
+    .btn-submit:active:not(:disabled) { transform: translateY(0); }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-submit svg { width: 18px; height: 18px; fill: white; }
+
+    .btn-submit.loading .btn-label { opacity: 0; }
+    .btn-submit.loading::after {
+      content: ''; position: absolute;
+      width: 18px; height: 18px;
+      border: 2.5px solid rgba(255,255,255,0.35); border-top-color: white;
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .footer-note {
+      text-align: center; font-size: 11.5px; color: var(--wa-text-gray);
+      margin-top: 18px; line-height: 1.6;
+    }
+    .footer-note a { color: var(--wa-teal); text-decoration: none; }
+    .footer-note a:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      .shell { grid-template-columns: 1fr; max-width: 440px; }
+      .left { padding: 44px 32px; }
+      .left-heading { font-size: 24px; }
+      .left-features { display: none; }
+      .right { padding: 44px 32px; }
+    }
+    @media (max-width: 480px) {
+      body { padding: 0; }
+      .shell { border-radius: 0; }
+      .left { padding: 32px 22px; }
+      .right { padding: 32px 22px; }
+      .right-heading { font-size: 20px; }
+      .phone-row { flex-direction: column; }
+      .select-wrap { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- LEFT -->
+    <div class="left">
+      <div class="left-inner">
+        <div class="left-badge">
+          <div class="left-badge-dot"></div>
+          Verificación segura
+        </div>
+        <div class="left-icon-wrap">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+        </div>
+        <h1 class="left-heading">Verifica tu<br>identidad</h1>
+        <p class="left-sub">Enviaremos un código único a tu WhatsApp para confirmar que eres tú.</p>
+        <div class="left-features">
+          <div class="feat"><div class="feat-dot"></div>Código encriptado de un solo uso</div>
+          <div class="feat"><div class="feat-dot"></div>Válido por 10 minutos</div>
+          <div class="feat"><div class="feat-dot"></div>Nunca compartimos tu número</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+      <div class="right-logo">
+        <div class="right-logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </div>
+        <span class="right-logo-text">WhatsApp</span>
+      </div>
+
+      <h2 class="right-heading">Ingresa tu número</h2>
+      <p class="right-sub">Te enviaremos un código de 6 dígitos directamente a tu WhatsApp</p>
+
+      <div class="info-strip">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        <div class="info-strip-text"><strong>Verificación segura:</strong> Tu código llega directo a tu WhatsApp. Nadie más puede verlo.</div>
+      </div>
+
+      <label class="field-label">Número de teléfono</label>
+      <div class="phone-row">
+        <div class="select-wrap">
+          <select id="countryCode">
+            <option value="+57">🇨🇴 +57</option>
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+34">🇪🇸 +34</option>
+            <option value="+56">🇨🇱 +56</option>
+            <option value="+55">🇧🇷 +55</option>
+            <option value="+52">🇲🇽 +52</option>
+            <option value="+54">🇦🇷 +54</option>
+            <option value="+51">🇵🇪 +51</option>
+          </select>
+        </div>
+        <input type="tel" id="phoneNumber" class="phone-input" placeholder="300 123 4567">
+      </div>
+
+      <button class="btn-submit" id="submitBtn">
+        <svg class="btn-label" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        <span class="btn-label">Enviar Código por WhatsApp</span>
+      </button>
+
+      <p class="footer-note">
+        Al continuar aceptas recibir mensajes de WhatsApp.<br>
+        Tu número no será compartido con terceros. <a href="#">Términos de servicio</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const phone = document.getElementById('phoneNumber');
+    const btn = document.getElementById('submitBtn');
+
+    phone.addEventListener('input', () => {
+      phone.value = phone.value.replace(/[^0-9]/g, '');
+    });
+
+    btn.addEventListener('click', async () => {
+      if (!phone.value || phone.value.length < 10) {
+        phone.style.borderColor = '#ef4444';
+        phone.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.12)';
+        setTimeout(() => {
+          phone.style.borderColor = '';
+          phone.style.boxShadow = '';
+        }, 1800);
+        return;
+      }
+      btn.disabled = true;
+      btn.classList.add('loading');
+      await new Promise(r => setTimeout(r, 1500));
+      window.location.href = 'loading.html';
+    });
+  </script>
+</body>
+</html>
